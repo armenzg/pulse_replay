@@ -6,12 +6,12 @@ required = [
 ]
 
 setup(
-    name='pulse_replay',
-    version='0.1.0.dev0',
-    packages=find_packages(),
-    install_requires=required,
     author='Armen Zambrano G.',
     author_email='armenzg@mozilla.com',
+    name='pulse_replay',
+    install_requires=required,
     license='MPL',
+    packages=find_packages(),
     url='https://github.com/armenzg/pulse_replay',
+    version='0.1.0',
 )
