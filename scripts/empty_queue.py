@@ -3,18 +3,22 @@ from argparse import ArgumentParser
 
 from replay import create_consumer
 
+
 def main():
     options = parse_args()
-    message_handler=print_message
+    message_handler = print_message
     consumer = create_consumer(
         user=options.user,
         password=options.password,
         config_file_path=options.config_file,
-        handle_message=message_handler
+        process_message=message_handler
     )
+    # Unfortunately this will block even when there are no more messages
+    # in the queue
     consumer.listen()
 
 
+# This function would be used if we want to clear the messages from the queue
 def print_and_ack(body, msg):
     print body
     msg.ack()

@@ -1,1 +1,4 @@
-from replay import create_consumer
+from replay import (
+    create_consumer,
+    replay_messages
+)

@@ -1,0 +1,4 @@
+{u'resultset_id': u'25847', u'times': 1, u'project': u'mozilla-inbound', u'version': 1, u'requester': u'philringnalda@gmail.com', u'action': u'trigger_missing_jobs'}
+{u'project': u'try', u'buildernames': [u'Windows 8 64-bit try debug test gtest', u'Windows 8 64-bit try opt test gtest'], u'version': 1, u'requester': u'giles@mozilla.com', u'resultset_id': u'87268'}
+{u'resultset_id': u'95252', u'times': 1, u'project': u'try', u'version': 1, u'requester': u'edgar81@gmx.net', u'action': u'cancel_all'}
+{u'resultset_id': u'27970', u'times': 6, u'project': u'mozilla-inbound', u'version': 1, u'requester': u'jmaher@mozilla.com', u'action': u'trigger_all_talos_jobs'}
