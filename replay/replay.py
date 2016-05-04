@@ -10,6 +10,7 @@ from mozillapulse.consumers import GenericConsumer
 
 LOG = logging.getLogger(__name__)
 
+
 class PulseReplayConsumer(GenericConsumer):
     def __init__(self, exchanges, **kwargs):
         super(PulseReplayConsumer, self).__init__(
@@ -20,6 +21,7 @@ def _read_json_file(filepath):
     with open(filepath) as data_file:
         return json.load(data_file)
 
+
 def _read_file(filepath):
     with open(filepath) as data_file:
         return data_file.read()
@@ -29,22 +31,27 @@ def create_consumer(user, password, config_file_path, process_message, *args, **
     '''Create a pulse consumer. Call listen() to start listening.'''
     queue_config = _read_json_file(filepath=config_file_path)
 
-    exchanges=map(lambda x: queue_config['sources'][x]['exchange'], queue_config['sources'].keys())
-    topics=map(lambda x: queue_config['sources'][x]['topic'], queue_config['sources'].keys())
+    exchanges = map(lambda x: queue_config['sources'][x]['exchange'], queue_config['sources'].keys())
+    topics = map(lambda x: queue_config['sources'][x]['topic'], queue_config['sources'].keys())
 
     LOG.info('Listening on %s, with topic %s', exchanges, topics)
+
+    pulse_args = {
+        # If the queue exists and is durable it should match
+        'durable': queue_config['durable'] in ('true', 'True'),
+        'password': password,
+        'topic': topics,
+        'user': user
+    }
+
+    if queue_config.get('applabel'):
+        pulse_args['applabel'] = queue_config['applabel'],
 
     return PulseReplayConsumer(
         # A list with the exchanges of each element under 'sources'
         exchanges=exchanges,
         callback=process_message,
-        **{
-            'applabel': queue_config['applabel'],
-            'durable': queue_config['durable'], # If the queue exists and is durable it should match
-            'password': password,
-            'topic': topics,
-            'user': user
-        }
+        **pulse_args
     )
     return consumer
 
