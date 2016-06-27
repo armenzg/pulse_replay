@@ -34,7 +34,8 @@ def create_consumer(user, password, config_file_path, process_message, *args, **
     exchanges = map(lambda x: queue_config['sources'][x]['exchange'], queue_config['sources'].keys())
     topics = map(lambda x: queue_config['sources'][x]['topic'], queue_config['sources'].keys())
 
-    LOG.info('Listening on %s, with topic %s', exchanges, topics)
+    for i in range(0, len(exchanges)):
+        LOG.info('Listening to (%s, %s)' % (exchanges[i], topics[i]))
 
     pulse_args = {
         # If the queue exists and is durable it should match
@@ -45,7 +46,7 @@ def create_consumer(user, password, config_file_path, process_message, *args, **
     }
 
     if queue_config.get('applabel') is not None:
-        pulse_args['applabel'] = queue_config['applabel'],
+        pulse_args['applabel'] = queue_config['applabel']
 
     return PulseReplayConsumer(
         # A list with the exchanges of each element under 'sources'

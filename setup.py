@@ -14,5 +14,5 @@ setup(
     license='MPL',
     packages=find_packages(),
     url='https://github.com/armenzg/pulse_replay',
-    version='0.2.1',
+    version='0.2.2',
 )
