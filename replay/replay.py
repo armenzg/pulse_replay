@@ -44,7 +44,7 @@ def create_consumer(user, password, config_file_path, process_message, *args, **
         'user': user
     }
 
-    if queue_config.get('applabel'):
+    if queue_config.get('applabel') is not None:
         pulse_args['applabel'] = queue_config['applabel'],
 
     return PulseReplayConsumer(
